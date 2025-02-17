@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra línea de tiempo <3</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            white-space: nowrap;
+            transition: all 0.5s ease;
+        }
+
+        /* Pantalla de introducción */
+        .intro {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            opacity: 1;
+            z-index: 1000;
+            transition: opacity 1s ease;
+        }
+
+        .intro h1 {
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .intro button {
+            background: #ff4081;
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1rem;
+        }
+
+        /* Línea temporal */
+        .timeline {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            gap: 20px;
+            position: relative;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            width: 90%;
+            margin: 0 auto;
+        }
+
+        .event {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+            width: 200px;
+            text-align: center;
+        }
+
+        .event:hover {
+            transform: scale(1.1);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(255, 105, 180, 0.5);
+            max-width: 300px;
+            text-align: center;
+            word-wrap: break-word;
+            white-space: normal;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            z-index: 1100; /* Asegura que esté por encima de todo */
+        }
+
+        .modal.show {
+            display: block;
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .modal button {
+            background: #ff4081;
+            border: none;
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla de introducción -->
+    <div id="intro" class="intro">
+        <h1>Bienvenida a la línea del tiempo de la mejor relación de la fokin historia 🔥🙏</h1>
+        <h2>FELIZ MEDIO AÑOOOO ASKJHDSKJAD<3333</h2>
+        <button onclick="startTimeline()">Iniciar</button>
+    </div>
+
+    <!-- Línea temporal -->
+    <div id="timeline" class="timeline" style="display: none;">
+        <div class="event" onclick="openModal('Recuerdo cuando nos vimos y hablamos por primera vez, han cambiado mucho las cosas desde ese día pero, mirarte a los ojos me hace sentir igual que aquel día.')">El primer día<3</div>
+        <div class="event" onclick="openModal('El día, el maldito día. No sabes cuanto esperé para escuchar esas palabras de tí, y sólo de ti. Y luego la maldita cita en la feria KSJADKHASD, fue genial, y realmente me hizo darme cuenta de como te miraba.')">18 de agosto</div>
+        <div class="event" onclick="openModal('Recuerdo ver cuando tweeteaste sobre ese día. Lo orgullosa que se te notaba al escribirlo me hizo muy feliz. Me sentí muy orgulloso de poder hacerte sentir así (aunque ese día literalmente solo dijera ola quiero salir contigo y me echara a llorar KJSADKJASD)')">Primer tweet</div>
+        <div class="event" onclick="openModal('Me encanta cuando me dices cosas bonitas, se siente increíble, pero como las primeras veces que lo hiciste? Bua, eso era increíble lo que me causaba en el cuerpo KASJDKJASD. Lo mismo con los motes cariñosos, me encanta que me llames por motes bonitos pero, las primeras veces fueron tan especiales, incluso cuando nos dimos la mano, que no veas lo que costó AKSJDKJASJD<3')">Primeros gestos</div>
+        <div class="event" onclick="openModal('De esto es que no tengo ni palabras. No sabes lo que agradezco desde ese día, poder besar tus labios todos los días que nos vemos, en todo momento. Soy adicto a ellos, a su forma, a su sabor, a su textura, a su color...')">Primer beso</div>
+        <div class="event" onclick="openModal('El primer mes fue inolvidable, y me parecieron adorables los regalos. Era la primera vez que regalaba y me regalaban algo por un mes, y me hizo muy feliz<3')">Primer mes</div>
+        <div class="event" onclick="openModal('Este mes también fue muy importante, ya que lo pasamos muy bien y encima celebramos tu cumpleaños. Me lo pasé muy bien, y me gustó mucho verte así de feliz:3')">Segundo Mes</div>
+        <div class="event" onclick="openModal('Esto bueno, wow. No me hubiera esperado nunca que realmente una persona se pudiera sentir tan bien junto a otra. Me gusta mucho como nos damos cariño incluso de esta forma, y tu cuerpo es tan hermoso, que no podría dejar de besarlo si tuviera el tiempo para hacerlo. Verlo desnudo por primera vez (y todas las veces que lo veo) es como, estar delante de una obra de valor incalculable, la cual es para tí y sólo para tí.')">Primera vez</div>
+        <div class="event" onclick="openModal('Esto también me encantó. Nunca pensé que fuera tan divertido hacerlo KAJSDKJHASD y me encantaría repetirlo muchísimas veces más :3')">Primera ducha</div>
+        <div class="event" onclick="openModal('He hablado mucho de las primeras veces de nuestras cosas aquí. Es muy bonito recordarlas pero, me gusta mucho más pensar que cada vez va a haber más primeras veces, y todas van a ser contigo. Sólo quiero seguirme sintiendo así contigo. Llevamos 6 meses, puede parecer poco pero, para mí bastó mucho menos para darme cuenta de que te quería en mi futuro, te quiero como mi esposa.')">6 Meses</div>
+        <div class="event" onclick="openModal('Hay mucho todavía que nos queda como ya dije, pero, tengo tantas ganas de hacerlo todo, TODO contigo. Vamos a durar toda la vida (si me aguantas tanto :p), y sé que van a venir muchos días de mierda, pero también muchos días increíbles. No puedo esperar a cosas como el primer día que durmamos juntos, el primer día que hayamos comprado la casa, el primer día después de que nos hayamos casado... Enserio, queda mucho tiempo, pero sé que va a merecer toda la pena, el día en el que ya ni me acuerde de como me llamo, me acordaré del 18 de agosto de 2024, de ese momento donde te pude abrazar sabiendo que estaba todo bien, y rompí a llorar después de sentir que había ganado la lotería. No la gané, la gano todos los días, levantandome con tus mensajes y palabras bonitas.')">Todo lo que queda</div>
+        <div class="event" onclick="openModal('Esta página tampoco ha sido la mejor ni la más currada ni mucho menos, pero sí es la que más he meditado. Podría poner muchas cosas más, pero sinceramente es que no acabo KASJDKJASD. Además he vuelto al pasado, he visto muchas fotos y dibujos nuestros con todo esto, y me trae tan buenos recuerdos. No puedo hacer nada más que darte las gracias Martina. Gracias desde lo más profundo de mi (algo imbécil y dañado) corazón, porque pase lo que pase, hagas lo que hagas, nunca dejará de latir por y para tí. Te amo 💜')">Final</div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <p id="modalText"></p>
+        <button onclick="closeModal()">Cerrar</button>
+    </div>
+
+    <!-- Audio de fondo -->
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="audio/musica_de_fondo.mp3" type="audio/mp3">
+        Tu navegador no soporta el audio.
+    </audio>
+
+    <script>
+        function startTimeline() {
+            // Fade out de la pantalla de introducción
+            document.getElementById('intro').style.opacity = '0';
+
+            // Mostrar la línea del tiempo después de la animación
+            setTimeout(function() {
+                document.getElementById('intro').style.display = 'none';
+                document.getElementById('timeline').style.display = 'flex';
+                document.getElementById('timeline').style.opacity = '1';
+            }, 1000); // Tiempo de fade out
+
+            // Reproducir música
+            const music = document.getElementById('backgroundMusic');
+            music.play();
+        }
+
+        function openModal(text) {
+            // Mostrar el modal con el texto correspondiente
+            const modal = document.getElementById('modal');
+            document.getElementById('modalText').innerText = text;
+            modal.classList.remove('hide');
+            modal.classList.add('show');
+            // Bloquear la interacción con los eventos mientras el modal está abierto
+            document.getElementById('timeline').style.pointerEvents = 'none';
+        }
+
+        function closeModal() {
+            // Cerrar el modal y permitir interacción con los eventos de nuevo
+            const modal = document.getElementById('modal');
+            modal.classList.remove('show');
+            modal.classList.add('hide');
+            document.getElementById('timeline').style.pointerEvents = 'auto'; // Permitir hacer clic en los eventos otra vez
+        }
+    </script>
+
+</body>
+</html>
